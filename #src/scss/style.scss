@@ -1,0 +1,608 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+  @font-face {
+    font-family: $font_name;
+    font-display: swap;
+    src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+    font-weight: #{$weight};
+    font-style: #{$style};
+  }
+}
+
+@mixin fontSize($minFont, $maxFont, $startWidth, $endWidth) {
+  @media (max-width: $startWidth+px) {
+    font-size: calc(($minFont + ($maxFont - $minFont) * (100vw / $startWidth))+px);
+  }
+  @media (max-width: $md3+px) {
+    font-size: calc(
+      $minFont+px + (($maxFont - $minFont) + (($maxFont - $minFont) * 0.7)) * ((100vw - $endWidth) / $startWidth)
+    );
+  }
+}
+@mixin lineHeight($minFont, $maxFont, $startWidth, $endWidth) {
+  @media (max-width: $startWidth+px) {
+    line-height: calc($minFont+px + ($maxFont - $minFont) * (100vw / $startWidth));
+  }
+  @media (max-width: $md3+px) {
+    line-height: calc(
+      $minFont+px + (($maxFont - $minFont) + (($maxFont - $minFont) * 0.7)) * ((100vw - $endWidth) / $startWidth)
+    );
+  }
+}
+
+//Внешние файлы
+@import "nullstyle"; // Файл обнуляющих стилей
+@import "fonts"; // Файл с шрифтами
+@import "header";
+@import "footer";
+@import "perem";
+
+body {
+  font-family: $main-font;
+  color: $color;
+  &.lock {
+    overflow: hidden;
+  }
+}
+.wrapper {
+  min-height: 100vh;
+  overflow: hidden;
+  width: 100%;
+}
+.container {
+  max-width: $mw + px;
+  padding: 0 15px;
+  margin: 0 auto;
+  @media (max-width: $min-width+px) {
+    max-width: 365px;
+    padding: 0 15px;
+  }
+}
+.container-content {
+  max-width: 1150px;
+  padding: 0 15px;
+  margin: 0 auto;
+  @media (max-width: $min-width+px) {
+    max-width: 355px;
+    padding: 0 10px;
+  }
+}
+.main {
+  margin: 127px 0 0 0;
+}
+.software {
+  &__block {
+    margin: 0 0 122px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      margin: 0 0 59px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      margin: 0 0 calc(59px + 63 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      margin: 0 0 calc(59px + (63 + 63 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+  &__row {
+    height: 518px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    @media (max-width: 1071px) {
+      flex-direction: column;
+      height: auto;
+    }
+  }
+  &__body {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @media (max-width: 1071px) {
+      align-items: center;
+      text-align: center;
+      margin: 0 0 41px 0;
+    }
+  }
+  &__img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    @media (max-width: 1071px) {
+      position: static;
+      margin: 0 -7.5px;
+    }
+    & img {
+      max-width: 100%;
+    }
+  }
+  &__title {
+    //Десктоп
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 60px;
+    max-width: 498px;
+    margin: 0 0 16px 0;
+
+    //Мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 28px;
+      line-height: 27px;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(28px + 20 * (100vw / 1120));
+      line-height: calc(27px + 33 * (100vw / 1120));
+      margin: 0 0 calc(20px + (-4) * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(28px + (20 + 20 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(27px + (33 + 33 * 0.7) * ((100vw - 375px) / 1120));
+      margin: 0 0 calc(20px + (-4 + (-4) * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__description {
+    max-width: 484px;
+    font-size: 17px;
+    line-height: 28px;
+    margin: 0 0 34px 0;
+
+    //Мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 14px;
+      line-height: 20px;
+      margin: 0 0 33px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(14px + 3 * (100vw / 1120));
+      line-height: calc(20px + 8 * (100vw / 1120));
+      margin: 0 0 calc(33px + 1 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(14px + (3 + 3 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(20px + (8 + 8 0.7) * ((100vw - 375px) / 1120));
+      margin: 0 0 calc(33px + (1 + 1 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__button {
+    position: relative;
+    display: inline-block;
+    padding: 22.5px 38px;
+    background: #00ecd0;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 21px;
+
+    //Мобайл
+    @media (max-width: $min-width+px) {
+      display: block;
+      text-align: center;
+      margin: 0 auto;
+      width: 120px;
+      padding: 11px 0;
+      font-size: 14px;
+      line-height: 17px;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      padding: calc(11px + 11.5 * (100vw / 1120)) calc(17px + 21 * (100vw / 1120));
+      font-size: calc(14px + 3 * (100vw / 1120));
+      line-height: calc(17px + 4 * (100vw / 1120));
+    }
+    @media (max-width: $md3+px) {
+      padding: calc(11px + (11.5 + 11.5 * 0.7) * ((100vw - 375px) / 1120))
+        calc(17px + (21 + 21 * 0.7) * ((100vw - 375px) / 1120));
+      font-size: calc(14px + (3 + 3 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(17px + (4 + 4 0.7) * ((100vw - 375px) / 1120));
+    }
+
+    //анимация
+    & span {
+      position: relative;
+      z-index: 2;
+      transition: color 0.5s ease 0s;
+    }
+    &::after {
+      border-radius: 6px;
+      transition: left 0.5s, width 0.5s ease 0s;
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 50%;
+      width: 0px;
+      height: 100%;
+      background-color: #18216d;
+    }
+    &:hover {
+      color: #00ecd0;
+      &::after {
+        width: 100%;
+        left: 0px;
+      }
+    }
+  }
+}
+
+.collaborate {
+  &__block {
+    margin: 0 0 130px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      margin: 0 0 50px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      margin: 0 0 calc(50px + 80 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      margin: 0 0 calc(50px + (80 + 80 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__start-up {
+    display: flex;
+    margin: 0 0 50px 0;
+    justify-content: space-between;
+
+    //мобайл
+    @media (max-width: 585px) {
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 0 22px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      margin: 0 0 calc(22px + 28 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      margin: 0 0 calc(22px + (28 + 28 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__title {
+    flex: 0 1 494px;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 50px;
+
+    //мобайл
+    @media (max-width: 585px) {
+      margin: 0 0 22px 0;
+    }
+    @media (max-width: $min-width+px) {
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(20px + 16 * (100vw / 1120));
+      line-height: calc(30px + 20 * (100vw / 1120));
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(20px + (16 + 16 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(30px + (20 + 20 * 0.7) * ((100vw - 375px) / 1120));
+    }
+  }
+}
+
+.indicators {
+  flex: 0 1 43%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 -2px;
+
+  //мобайл
+  @media (max-width: 585px) {
+    flex: 1 1 100%;
+    justify-content: space-evenly;
+  }
+
+  &__item {
+    padding: 0 2px;
+  }
+
+  &__title {
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 70px;
+    letter-spacing: -1px;
+    margin: 0 0 10px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 30px;
+      line-height: 30px;
+      margin: 0 0 12px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(30px + 30 * (100vw / 1120));
+      line-height: calc(30px + 40 * (100vw / 1120));
+      margin: 0 0 calc(12px + (-2) * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(30px + (30 + 30 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(30px + (40 + 40 * 0.7) * ((100vw - 375px) / 1120));
+      margin: 0 0 calc(12px + (-2 + (-2) * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__like {
+    margin: 0 0 12px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      margin: 0 0 11px 0;
+    }
+  }
+
+  &__descrption {
+    font-size: 16px;
+    line-height: 28px;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 8.5px;
+      line-height: 8.5px;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(8.5px + 7.5 * (100vw / 1120));
+      line-height: calc(8.5px + 19.5 * (100vw / 1120));
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(8.5px + (7.5 + 7.5 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(8.5px + (19.5 + 19.5 * 0.7) * ((100vw - 375px) / 1120));
+    }
+  }
+}
+
+.heart {
+  height: 14px;
+  width: 95px;
+  background: url("../img/icon/heart.png") 0 0 / 16px 14px space;
+  @media (max-width: $min-width+px) {
+    height: 7.44px;
+    width: 52px;
+    background-size: 8.51px 7.44px;
+  }
+}
+.star {
+  height: 15.9px;
+  width: 95px;
+  background: url("../img/icon/star.png") 0 0 / 16.69px 15.9px space;
+  @media (max-width: $min-width+px) {
+    height: 8.17px;
+    width: 52px;
+    background-size: 8.58px 8.17px;
+  }
+}
+
+.companies {
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 -6px;
+  }
+  &__column {
+    padding: 0 6px;
+    flex: 0 1 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: $md3+px) {
+      margin: 0 0 20px 0;
+    }
+    @media (max-width: $md3+px) {
+      &:nth-child(n + 5) {
+        display: none;
+      }
+    }
+  }
+  &__item {
+    & img {
+      max-width: 100%;
+    }
+  }
+}
+
+.features {
+  &__block {
+    margin: 0 0 130px 0;
+  }
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__title {
+    //text-align: center;
+    letter-spacing: -1px;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 64px;
+    margin: 0 0 12px 0;
+
+    //мобайл
+    @media (max-width: $md3+px) {
+      font-size: 24px;
+      line-height: 24px;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(24px + 24 * (100vw / 1120));
+      line-height: calc(24px + 40 * (100vw / 1120));
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(24px + (24 + 24 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(24px + (40 + 40 * 0.7) * ((100vw - 375px) / 1120));
+    }
+  }
+  &__description {
+    margin: 0 0 48px 0;
+    max-width: 542px;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.02em;
+      margin: 0 0 40px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(14px + 2 * (100vw / 1120));
+      line-height: calc(20px + 10 * (100vw / 1120));
+      margin: 0 0 calc(40px + 8 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(14px + (2 + 2 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(20px + (10 + 10 * 0.7) * ((100vw - 375px) / 1120));
+      margin: 0 0 calc(40px + (8 + 8 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 -10px;
+    @media (max-width: $md2+px) {
+      flex-wrap: wrap;
+    }
+    @media (max-width: $md4+px) {
+      margin: 0;
+    }
+  }
+}
+.item {
+  flex: 0 1 33.333%;
+  padding: 0 10px;
+
+  //адаптив
+  @media (max-width: $md3+px) {
+    flex: 0 1 50%;
+    margin: 0 0 48px 0;
+    &:last-child {
+      margin: 0;
+    }
+  }
+  @media (max-width: $md4+px) {
+    flex: 1 1 100%;
+    padding: 0;
+  }
+  &__img {
+    margin: 0 0 28px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      margin: 0 0 20px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      margin: 0 0 calc(20px + 8 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      margin: 0 0 calc(20px + (8 + 8 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+    & img {
+      max-width: 100%;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    margin: 0 0 14px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 20px;
+      line-height: 24px;
+      margin: 0 0 12px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(20px + 4 * (100vw / 1120));
+      line-height: calc(24px + 5 * (100vw / 1120));
+      margin: 0 0 calc(12px + 2 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(20px + (4 + 4 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(24px + (5 + 5 * 0.7) * ((100vw - 375px) / 1120));
+      margin: 0 0 calc(12px + (2 + 2 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__description {
+    font-size: 16px;
+    line-height: 26px;
+    opacity: 0.6;
+    margin: 0 0 30px 0;
+
+    //мобайл
+    @media (max-width: $min-width+px) {
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0 0 20px 0;
+    }
+
+    //резина
+    @media (max-width: 1119px) {
+      font-size: calc(14px + 2 * (100vw / 1120));
+      line-height: calc(24px + 2 * (100vw / 1120));
+      margin: 0 0 calc(20px + 10 * (100vw / 1120)) 0;
+    }
+    @media (max-width: $md3+px) {
+      font-size: calc(14px + (2 + 2 * 0.7) * ((100vw - 375px) / 1120));
+      line-height: calc(24px + (2 + 2 * 0.7) * ((100vw - 375px) / 1120));
+      margin: 0 0 calc(20px + (10 + 10 * 0.7) * ((100vw - 375px) / 1120)) 0;
+    }
+  }
+
+  &__link {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 16px;
+    color: $color;
+    &:visited {
+      color: $color;
+    }
+  }
+}
+
+//общие стили
+.link-anim {
+  transition: color 0.3s ease 0s;
+  &:hover {
+    color: #005fec;
+  }
+}
